@@ -3,8 +3,9 @@
 export WEBHOOK_AUTH="${WEBHOOK_AUTH:-no}"
 export WEBHOOK_TOKEN_NAME="${WEBHOOK_TOKEN_NAME:-4UTH}"
 
-export HAPROXY_timeout=foo
-export HAPROXY_limit=bar
+export HAPROXY_http_req_rate=${HAPROXY_http_req_rate:-10s}
+export HAPROXY_http_req_expire=${HAPROXY_http_req_expire:-30s}
+export HAPROXY_http_req_count=${HAPROXY_http_req_count:-20}
 
 mkdir -p /app /config/{scripts,hooks} /var/run/haproxy/ /var/lib/haproxy/ 
 
