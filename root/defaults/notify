@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -n "$APPRISE_TAGS" ]; then
+   options+=(-g "$APPRISE_TAGS")
+fi 
+
+if [ -n "$APPRISE_TYPE" ]; then
+   options+=(-n "$APPRISE_TYPE")
+fi 
+
+if [ -n "$APPRISE_BODY" ]; then
+   options+=(-b "$APPRISE_BODY")
+else
+   options+=(-b "No body specified")
+fi 
+
+if [ -n "$APPRISE_TITLE" ]; then
+   options+=(-t "$APPRISE_TITLE")
+fi 
+
+/usr/bin/apprise "${options[@]}" "$CONFIGURATION" ; status=$?
+
+if [ "$status" == 0 ]; then
+  printf 'OK'
+  exit 0
+else
+  exit 1
+fi 
