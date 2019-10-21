@@ -18,10 +18,10 @@ fi
 
 if [ "$WEBHOOK_AUTH" == "yes" ]; then
    echo "$(date -I'seconds') [INFO] Hook auth enabled .. "
-   ln -s /defaults/hooks.yaml.auth_tmpl /defaults/hooks.yaml
+   ln -s /defaults/hooks.yaml.auth_tmpl /config/hooks/hooks.yaml
 else 
    echo "$(date -I'seconds') [INFO] Hook auth disabled .. "
-   ln -s /config/hooks/hooks.yaml.noauth_tmpl /defaults/hooks.yaml
+   ln -s /config/hooks/hooks.yaml.noauth_tmpl /config/hooks/hooks.yaml
 fi
 
 if [ ! -n "$WEBHOOK_TOKEN_VALUE" ]; then
@@ -45,12 +45,6 @@ unset IFS; for var in ${!HAPROXY_*}; do printf '%s' "${!var}" > "/var/run/s6/con
 # env for webhook
 unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/container_environment/$var"; done
 
-# copy script
-[[ ! -f /config/scripts/notify ]] && cp \
-	/defaults/notify /config/scripts/notify
-
-# copy hook
-[[ ! -f /config/hooks/hooks.yaml ]] && cp \
-	/defaults/hooks.yaml /config/hooks/hooks.yaml
+cp /defaults/haproxy.cfg /etc/haproxy/haproxy.cfg
 
 chown abc:abc -R /config /var/lib/haproxy/
