@@ -25,6 +25,9 @@ lukasmrtvy/lsiobase-webhook-gateway
 - TZ ( Optional, Default: UTC )
 - PUID
 - PGID
+- HAPROXY_http_req_rate ( Optional, Default: 10s ) 
+- HAPROXY_http_req_expire ( Optional, Default: 30s )
+- HAPROXY_http_req_count ( Optional, Default: 20 ) 
 
 # ports
 - 8080 ( haproxy frontend with rate limiting )
