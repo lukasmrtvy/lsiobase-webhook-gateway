@@ -48,10 +48,10 @@ unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/con
 [[ ! -f /etc/haproxy/haproxy_default.cfg ]] && cp \
 	ln -s /defaults/haproxy.cfg /etc/haproxy/haproxy_default.cfg
 
-[[ ! -f /config/scripts/notify ]] && cp \
+[[ ! -f /config/scripts/notify ]] && \
 	ln -s /defaults/notify /config/scripts/notify
    
-[[ ! -f /defaults/hooks.yaml ]] && cp \
+[[ ! -f /defaults/hooks.yaml ]] && \
 	ln -s /defaults/hooks.yaml /config/hooks/hooks.yaml   
 
 chown abc:abc -R /config /var/lib/haproxy/ /var/run/haproxy/
