@@ -8,8 +8,9 @@ LABEL maintainer=""
 ENV WEBHOOK_VERSION 2.6.10
 ENV APPRISE_VERSION 0.8.1
 
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
+
 RUN \
-    set -xe && \
     apk add -U --no-cache haproxy bash ca-certificates curl jq tzdata python3 && \
     curl -sSL https://github.com/adnanh/webhook/releases/download/${WEBHOOK_VERSION}/webhook-linux-amd64.tar.gz | tar xz --strip-components=1 -C /app/ && \
     ls -lha /app/ && \
