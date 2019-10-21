@@ -6,7 +6,7 @@ export WEBHOOK_TOKEN_NAME="${WEBHOOK_TOKEN_NAME:-4UTH}"
 export HAPROXY_timeout=foo
 export HAPROXY_limit=bar
 
-mkdir -p /app /config/{scripts,hooks}
+mkdir -p /app /config/{scripts,hooks} /var/run/haproxy/ /var/lib/haproxy/
 
 if [ -n "$CACERT_PATH" ] && [ -f "$CACERT_PATH" ]; then
    echo "$(date -I'seconds') [INFO] Adding cacert .. "
@@ -47,4 +47,4 @@ unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/con
 
 cp /defaults/haproxy.cfg /etc/haproxy/haproxy.cfg
 
-chown abc:abc -R /config /var/lib/haproxy/
+chown abc:abc -R /config /var/lib/haproxy/ /var/run/haproxy/
