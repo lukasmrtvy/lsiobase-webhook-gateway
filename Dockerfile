@@ -13,7 +13,6 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 RUN \
     apk add -U --no-cache haproxy bash ca-certificates curl jq tzdata python3 && \
     curl -sSL https://github.com/adnanh/webhook/releases/download/${WEBHOOK_VERSION}/webhook-linux-amd64.tar.gz | tar xz --strip-components=1 -C /app/ && \
-    ls -lha /app/ && \
     pip3 install apprise==$APPRISE_VERSION
 
 COPY root/ /
