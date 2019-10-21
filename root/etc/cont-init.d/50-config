@@ -45,4 +45,4 @@ unset IFS; for var in ${!HAPROXY_*}; do printf '%s' "${!var}" > "/var/run/s6/con
 # env for webhook
 unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/container_environment/$var"; done
 
-chown abc:abc -R /config
+chown abc:abc -R /config /var/lib/haproxy/
