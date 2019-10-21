@@ -34,9 +34,8 @@ lukasmrtvy/lsiobase-webhook-gateway
 - 9000 ( backend )
 
 # batteries included
-- haproxy
-- tini
-- supervisord
+- haproxy ( rate limits )
+- s6
 - apprise
 - webhook
 
