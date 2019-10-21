@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/usr/bin/with-contenv bash
 
 export WEBHOOK_AUTH="${WEBHOOK_AUTH:-no}"
 export WEBHOOK_TOKEN_NAME="${WEBHOOK_TOKEN_NAME:-4UTH}"
+
+export HAPROXY_timeout=foo
+export HAPROXY_limit=bar
+
+mkdir -p /app /config/{scripts,hooks}
 
 if [ -n "$CACERT_PATH" ] && [ -f "$CACERT_PATH" ]; then
    echo "$(date -I'seconds') [INFO] Adding cacert .. "
@@ -13,10 +18,10 @@ fi
 
 if [ "$WEBHOOK_AUTH" == "yes" ]; then
    echo "$(date -I'seconds') [INFO] Hook auth enabled .. "
-   ln -s /opt/webhook/hooks/hooks.yaml.auth_tmpl /opt/webhook/hooks/hooks.yaml
+   ln -s /config/hooks/hooks.yaml.auth_tmpl /config/hooks/hooks.yaml
 else 
    echo "$(date -I'seconds') [INFO] Hook auth disabled .. "
-   ln -s /opt/webhook/hooks/hooks.yaml.noauth_tmpl /opt/webhook/hooks/hooks.yaml
+   ln -s /config/hooks/hooks.yaml.noauth_tmpl /config/hooks/hooks.yaml
 fi
 
 if [ ! -n "$WEBHOOK_TOKEN_VALUE" ]; then
@@ -33,3 +38,11 @@ else
   echo "$(date -I'seconds') [ERROR] APPRISE_CONFIG_PATH nor APPRISE_ENDPOINTS are valid .."
   exit 1
 fi
+
+# env for haproxy
+unset IFS; for var in ${!HAPROXY_*}; do printf '%s' "${!var}" > "/var/run/s6/container_environment/$var"; done
+
+# env for webhook
+unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/container_environment/$var"; done
+
+chown abc:abc -R /config
