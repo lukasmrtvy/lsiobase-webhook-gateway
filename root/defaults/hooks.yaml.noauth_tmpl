@@ -1,10 +1,6 @@
-- id: health
-  execute-command: /opt/webhook/scripts/health
-  command-working-directory: /opt/webhook/scripts/
-  include-command-output-in-response: true
 - id: notify
-  execute-command: /opt/webhook/scripts/notify
-  command-working-directory: /opt/webhook/scripts/
+  execute-command: /config/scripts/notify
+  command-working-directory: /config/scripts/
   include-command-output-in-response: true
   pass-environment-to-command:
   - source: url
