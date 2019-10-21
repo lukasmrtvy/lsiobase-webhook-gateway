@@ -45,8 +45,8 @@ unset IFS; for var in ${!HAPROXY_*}; do printf '%s' "${!var}" > "/var/run/s6/con
 # env for webhook
 unset IFS; for var in ${!WEBHOOK_*}; do printf '%s' "${!var}" > "/var/run/s6/container_environment/$var"; done
 
-[[ ! -f /etc/haproxy/haproxy.cfg ]] && cp \
-	ln -s /defaults/haproxy.cfg /etc/haproxy/haproxy.cfg
+[[ ! -f /etc/haproxy/haproxy_default.cfg ]] && cp \
+	ln -s /defaults/haproxy.cfg /etc/haproxy/haproxy_default.cfg
 
 [[ ! -f /config/scripts/notify ]] && cp \
 	ln -s /defaults/notify /config/scripts/notify
