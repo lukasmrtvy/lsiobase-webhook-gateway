@@ -1,0 +1,35 @@
+#!/bin/sh
+
+export WEBHOOK_AUTH="${WEBHOOK_AUTH:-no}"
+export WEBHOOK_TOKEN_NAME="${WEBHOOK_TOKEN_NAME:-4UTH}"
+
+if [ -n "$CACERT_PATH" ] && [ -f "$CACERT_PATH" ]; then
+   echo "$(date -I'seconds') [INFO] Adding cacert .. "
+   mv "$CACERT_PATH" /usr/local/share/ca-certificates/
+   /usr/sbin/update-ca-certificates
+else 
+   echo "$(date -I'seconds') [INFO] No cacert detected .."
+fi
+
+if [ "$WEBHOOK_AUTH" == "yes" ]; then
+   echo "$(date -I'seconds') [INFO] Hook auth enabled .. "
+   ln -s /opt/webhook/hooks/hooks.yaml.auth_tmpl /opt/webhook/hooks/hooks.yaml
+else 
+   echo "$(date -I'seconds') [INFO] Hook auth disabled .. "
+   ln -s /opt/webhook/hooks/hooks.yaml.noauth_tmpl /opt/webhook/hooks/hooks.yaml
+fi
+
+if [ ! -n "$WEBHOOK_TOKEN_VALUE" ]; then
+  echo "$(date -I'seconds') [INFO] Generating webhook token .."
+  export WEBHOOK_TOKEN_VALUE=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+  echo "$(date -I'seconds') [INFO] Token: $WEBHOOK_TOKEN_VALUE"
+fi
+
+if [ -n "$APPRISE_CONFIG_PATH" ] && [ -f "$APPRISE_CONFIG_PATH" ]; then
+     export CONFIGURATION="-c $APPRISE_CONFIG_PATH"
+elif [ -n "$APPRISE_ENDPOINTS" ]; then
+     export CONFIGURATION="$APPRISE_ENDPOINTS"
+else
+  echo "$(date -I'seconds') [ERROR] APPRISE_CONFIG_PATH nor APPRISE_ENDPOINTS are valid .."
+  exit 1
+fi
