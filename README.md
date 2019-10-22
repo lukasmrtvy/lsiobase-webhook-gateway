@@ -45,4 +45,4 @@ curl http://docker-webhook-gateway:8080/hooks/notify?title=foo&body=bar
 ```
 
 # todo
-webhook sighup handling
+webhook sighup handling + haproxy maxconn
