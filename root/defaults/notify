@@ -18,7 +18,7 @@ if [ -n "$APPRISE_TITLE" ]; then
    options+=(-t "$APPRISE_TITLE")
 fi 
 
-/usr/bin/apprise "${options[@]}" "$CONFIGURATION" ; status=$?
+/usr/bin/apprise "${options[@]}" "${WEBHOOK_CONFIGURATION[@]}" ; status=$?
 
 if [ "$status" == 0 ]; then
   printf 'OK'
