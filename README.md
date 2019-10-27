@@ -41,7 +41,10 @@ lukasmrtvy/lsiobase-webhook-gateway
 
 # usage
 ```
-curl http://docker-webhook-gateway:8080/hooks/notify?title=foo&body=bar
+curl -XPOST   --data "body=foobar"  --data "title=mytitle" 'http://127.0.0.1:8080/hooks/notify' 
+curl -XGET "http://127.0.0.1:8080/hooks/notify?title=fu&body=bar" 
+curl -XPOST --header "Content-Type: application/json" -d '{"body":"hello"}' 'http://127.0.0.8080/hooks/notify' 
+curl -XPOST --data "body=foobar" "http://127.0.0.1:8080/hooks/notify?title=fu&body=bar" 
 ```
 
 # todo
