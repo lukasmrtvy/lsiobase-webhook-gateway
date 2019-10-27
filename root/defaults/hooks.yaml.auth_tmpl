@@ -15,6 +15,18 @@
   - source: url
     name: tags
     envname: APPRISE_TAGS
+  - source: payload
+    name: title
+    envname: APPRISE_TITLE
+  - source: payload
+    name: body
+    envname: APPRISE_BODY
+  - source: payload
+    name: type
+    envname: APPRISE_TYPE
+  - source: payload
+    name: tags
+    envname: APPRISE_TAGS
   trigger-rule:
     and:
     - match:
