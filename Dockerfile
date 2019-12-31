@@ -2,7 +2,7 @@ FROM golang:alpine3.10 as webhook-builder
 
 WORKDIR /go/src/github.com/adnanh/webhook
 
-ENV WEBHOOK_VERSION 2.6.10
+ENV WEBHOOK_VERSION 2.6.11
 
 RUN apk add --update -t build-deps curl libc-dev gcc libgcc && \
     curl -L --silent -o webhook.tar.gz https://github.com/adnanh/webhook/archive/${WEBHOOK_VERSION}.tar.gz && \
@@ -19,7 +19,7 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer=""
 
-ENV APPRISE_VERSION 0.8.1
+ENV APPRISE_VERSION 0.8.2
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 
